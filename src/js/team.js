@@ -3,21 +3,12 @@ export default class Team {
     this.team = [...person];
   }
 
-  [Symbol.iterator]() {
-    const { team } = this;
+  * [Symbol.iterator]() {
     let current = 0;
-    const last = team.length;
-    return {
-      next() {
-        if (current < last) {
-          const result = {
-            done: false, value: team[current],
-          };
-          current += 1;
-          return result;
-        }
-        return { done: true };
-      },
-    };
+    const last = this.members.length;
+    while (current < last) {
+      yield this.members[current];
+      current += 1;
+    }
   }
 }
